@@ -1,5 +1,5 @@
 #include <VescUart.h>
-#define _INTERACTIVE_ 0
+#define _INTERACTIVE_ 1
 
 VescUart UART;
 const float DUTY_MAX = 0.15;
