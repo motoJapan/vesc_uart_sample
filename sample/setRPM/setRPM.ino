@@ -17,7 +17,7 @@ void setup() {
 void loop() {
   if ( UART.getVescValues() ) {
     String command = Serial.readStringUntil('\n');
-    int cmd = command.toInt();    
+    int cmd = command.toInt();
     Serial.print("[command] VESC cmd:");
     Serial.println(cmd);
     // setRPMと併用する必要はないはず
@@ -42,20 +42,23 @@ void loop() {
 
     if (rpm == 0) {
       // 入力がない間は0を設定
+      Serial.println("[setRPM] brake");
       UART.setRPM(0);
     }
 
     if (cmd == 0) {
       // 入力タイムアウトをした場合 or 入力がIntではない場合、何もしない
-      return;
+      Serial.println("[setRPM] repeat");
+      return; // これは一応うまく動いている
       // 常時入力する必要はないはず？
-      // Serial.print("[command keep] VESC rpm:");
-      // Serial.println(rpm);
-      // UART.setRPM(rpm);
-      // return;
+      //Serial.print("[command keep] VESC rpm:");
+      //Serial.println(rpm);
+      //UART.setRPM(rpm);
+      //return;
     }
     else {
       // 入力があった場合、入力値をそのまま、setRPMする
+      Serial.println("[setRPM] update");
       rpm = cmd;
       Serial.print("[command new] VESC rpm:");
       Serial.println(rpm);
